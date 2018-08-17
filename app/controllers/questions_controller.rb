@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
   end
   
   def show
-    
+    @question = Question.find(params[:id])
   end  
   
   def edit
@@ -25,9 +25,9 @@ class QuestionsController < ApplicationController
   end
   
   def update
-    @question = Question.edit(question_params)
-    if @question.save
-      redirect_to questions_path
+    @question = Question.find(params[:id])
+    if @question.update(question_params)
+      redirect_to questions_path, notice: "Success!"
   else
       render :edit
   end
