@@ -1,4 +1,5 @@
 class QuestionsController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
   def index
     @questions = Question.all
   end
@@ -6,9 +7,10 @@ class QuestionsController < ApplicationController
   def new
     @question = Question.new
   end
-
+  
   def create
     @question = Question.new(question_params)
+    
       if @question.save
           redirect_to questions_path
       else
