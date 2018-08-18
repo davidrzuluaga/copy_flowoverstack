@@ -1,16 +1,15 @@
-<h1><%=action%> Product</h1>
+<h1><%=action%> question</h1>
 
 <%= form_for @question do |f| %>
   <div>
     <%= f.label :title %><br>
-    <%= f.text_field :title %>
+    <%= f.text_field :title, class:"form-control", id:"formGroupExampleInput"  %>
   </div>
   <div>
     <%= f.label :body %><br>
-    <%= f.text_area :body %>
+    <%= f.text_area :body, class:"form-control", id:"exampleFormControlTextarea1" %>
   </div>
-
   <div>
-    <%= f.submit %>
+    <%= f.submit class:"btn btn-primary"  %>
   </div>
 <% end %>
