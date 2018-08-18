@@ -1,0 +1,15 @@
+<div class="row">
+  <% @questions.each do |question| %>
+  <div class="col-8 offset-2">
+    <div class="card bg-light mb-3">
+        <a href="<%= question_path(question) %>" class="">
+      <div class="card-header"><%=question.title%></div></a>  
+      <div class="card-body">
+        <h5 class="card-title"><h5></h5>
+        <p class="card-text"><strong>Created: <%= question.created_at%></strong></p>            
+        <p class="card-text"><%=h truncate(question.body, :length => 10) %></p> 
+      </div>
+    </div>
+  </div>
+  <% end %>
+</div>
