@@ -6,7 +6,7 @@
       <div class="card-header"><%=question.title%></div></a>  
       <div class="card-body">
         <h5 class="card-title"><h5></h5>
-        <p class="card-text"><strong>Created: <%= question.created_at%></strong></p>            
+        <p class="card-text"><strong>Created:</strong> <%= question.created_at%> <strong>User:</strong> <%= @users.find(question.user_id).email%> </p>
         <p class="card-text"><%=h truncate(question.body, :length => 10) %></p> 
       </div>
     </div>

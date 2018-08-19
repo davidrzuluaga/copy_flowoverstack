@@ -1,32 +1,39 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">Flow<strong>Overstack</strong></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <a class="navbar-brand" href="<%=questions_path%>">Flow
+    <strong>Overstack</strong>
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="<%=questions_path%>">Questions</a>
-      </li>
-      <% if user_signed_in? %>
-        <li class="nav-item">
-          <a class="nav-link" href="<%=new_question_path%>">New</a>
-        </li>
-      <%end%>        
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Platform
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-        <% if user_signed_in? %>
-          <%= link_to 'Log Out', destroy_user_session_path, method: 'delete', class:"dropdown-item" %>
-        <%else%>
-          <%= link_to 'Log In', new_user_session_path, class:"dropdown-item" %>        
-          <%= link_to 'Log Up', new_user_registration_path, class:"dropdown-item" %>        
-        <%end%>        
-        </div>
-      </li>
+      
+          <ul class="nav navbar-nav navbar-right">
+            <% if user_signed_in? %>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle avatar" data-toggle="dropdown">
+                  <img src="<%= Gravatar.new(" #{current_user.email} ").image_url %>" class="img-circle" />
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                  <%= link_to 'Log Out', destroy_user_session_path, method: 'delete', class:"dropdown-item" %>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="<%=new_question_path%>">New</a>
+              </li>
+            <% else %>
+                <ul>
+                  <%= link_to 'Log In', new_user_session_path, class:"dropdown-item" %>
+                </ul>
+                <ul>
+                  <%= link_to 'Sign Up', new_user_registration_path, class:"dropdown-item" %>
+                </ul>
+            <% end %>
+          </ul>
+         
     </ul>
     <form class="form-inline my-2 my-lg-0">
       <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

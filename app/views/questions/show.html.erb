@@ -3,8 +3,12 @@
         <div class="col-sm-12">
             <h1><%= @question.title %></h1>
             <p><%= @question.body %></p>
-            <p><a href="<%= edit_question_path %>">Edit</a>
-            </p>
+            <% if signed_in? && @question.user == current_user%>
+                <div class="actions">
+                <%= link_to "&#x270E;".html_safe, edit_question_path(@question) %>
+                <%= link_to "&#128465;".html_safe, @question, method: :delete, data: { confirm: "¿Estás seguro de eliminar la pregunta?" } %>
+                </div>
+            <%end%>
         </div>
     </div>
 </div>
