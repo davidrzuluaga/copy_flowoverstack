@@ -21,6 +21,8 @@ class QuestionsController < ApplicationController
   
   def show
     @question = Question.find(params[:id])
+    @questioncomments = Question.find(params[:id]).comments
+    @answers = Question.find(params[:id]).answer
   end  
   
   def edit

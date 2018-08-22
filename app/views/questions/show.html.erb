@@ -9,6 +9,48 @@
                 <%= link_to "&#128465;".html_safe, @question, method: :delete, data: { confirm: "¿Estás seguro de eliminar la pregunta?" } %>
                 </div>
             <%end%>
+
+            <p><strong>Comments</strong></p>
+            <% @questioncomments.each do |comment| %>
+                <p><%= comment.text %></p>
+            <%end%>
+
+            <% if signed_in?%>
+            <%= form_for @question.comments.build do |f| %>
+                <%= f.hidden_field :commentable_id %>
+                <%= f.hidden_field :commentable_type %>
+                <%= f.text_area :text %>
+                <%= f.submit 'comment', class: 'btn' %>
+            <% end %>
+            <%end%>
+
+            <h2> Answers </h2>
+                <% @answers.each do |answer|%>
+                    <p><strong>Answer:</strong> <%= answer.text %></p>
+                    <% answer.comments.each do |comment| %>
+                        <p>Comment: <%= comment.text %></p>
+                    <%end%>
+                        <% if signed_in?%>
+                            <%= form_for answer.comments.build do |f| %>
+                                <%= f.hidden_field :commentable_id %>
+                                <%= f.hidden_field :commentable_type %>
+                                <%= f.text_area :text %>
+                                <%= f.submit 'comment', class: 'btn' %>
+                            <% end %>                        
+                        <% end %>
+                <%end%>
+
+            <h3> Answer the question! </h3>
+            <% if signed_in?%>
+                <%= form_for @question.answer.build do |f| %>
+                    <%= f.hidden_field :question_id %>
+                    <%= f.text_area :text %>
+                    <%= f.submit 'answer', class: 'btn' %>
+                <% end %>
+            <%else%>
+                <p>Sing Up or Log In to answer</p>            
+            <%end%>
+            
         </div>
     </div>
 </div>
