@@ -13,6 +13,6 @@
 class Question < ApplicationRecord
     has_many :comments, as: :commentable
     belongs_to :user
-    has_many :answer
+    has_many :answers
     validates :title, :body, presence: true
 end

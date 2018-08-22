@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2018_08_22_032307) do
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
   end
-
+#preguntar proque no me deja eliminar una question completa
   create_table "comments", force: :cascade do |t|
     t.string "commentable_type"
     t.integer "commentable_id"
