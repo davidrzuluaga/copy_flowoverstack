@@ -1,17 +1,9 @@
 class CommentsController < ApplicationController
 
     def create
-        #comment = Comment.new
-        comment = Comment.new(comment_params)
-        comment.save
-        #preguntar! redirect_to question_path(params[:comment][:commentable_id])
-        redirect_to questions_path
-        
-        # if @comment.save
-        #   redirect_to polymorphic_path([@comment.commentable]), notice: 'Comment created'
-        # else
-        #   render :new
-        # end
+      comment = Comment.new(comment_params)
+      comment.save
+      redirect_to question_path(comment.commentable)
     end
 
   private

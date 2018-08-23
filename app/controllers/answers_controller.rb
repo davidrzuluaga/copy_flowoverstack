@@ -3,8 +3,8 @@ class AnswersController < ApplicationController
     def create
        @answer = Answer.new(question_params)
        @answer.save
-       redirect_to question_path(params[:answer][:question_id])
-    end 
+       redirect_to question_path(@answer.question)
+    end  
 
 private
 

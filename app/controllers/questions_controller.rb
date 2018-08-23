@@ -1,13 +1,14 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
+  
   def index
     
     @users = User.all
 
     @questions = Question.order("created_at DESC")
     if params[:question].present?
-      @questions = @questions.where("title LIKE ?", "%#{params[:question]}%")
-      @questions = @questions.where("body LIKE ?", "%#{params[:question]}%") #preguntar
+      @questions = Question.where("title LIKE ? OR body LIKE ?", "%#{params[:question]}%", "%#{params[:question]}%")
+      # @questions = @questions.where("body LIKE ?", "%#{params[:question]}%") 
     end
   end
  
@@ -55,7 +56,7 @@ class QuestionsController < ApplicationController
       question = Question.find(params[:id])
       question.destroy
       redirect_to questions_path
-    end    
+    end
   end
 
 private
