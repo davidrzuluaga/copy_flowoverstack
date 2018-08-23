@@ -2,8 +2,18 @@ class CommentsController < ApplicationController
 
     def create
       comment = Comment.new(comment_params)
+      comment.user = current_user
       comment.save
-      redirect_to question_path(comment.commentable)
+      redirect_to question_path(comment.commentable_type == "Question" ? comment.commentable.id : comment.commentable.question_id)
+    end
+
+    def destroy
+      @comment = Comment.find(params[:id])
+      if @comment.user == current_user
+        comment = Comment.find(params[:id])
+        comment.destroy
+        redirect_to question_path(comment.commentable_type == "Question" ? comment.commentable.id : comment.commentable.question_id)
+      end
     end
 
   private
@@ -12,3 +22,4 @@ class CommentsController < ApplicationController
       params.require(:comment).permit(:text, :commentable_type, :commentable_id)
     end
 end
+
