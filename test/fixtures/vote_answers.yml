@@ -1,0 +1,20 @@
+# == Schema Information
+#
+# Table name: vote_answers
+#
+#  id         :integer          not null, primary key
+#  answers_id :integer
+#  user_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  answers: one
+  user: one
+
+two:
+  answers: two
+  user: two

@@ -1,23 +1,22 @@
 <div class="row">
   <% @questions.each do |question| %>
   <div class="col-10 offset-1">
-    <div class="card bg-light mb-3">
+    <div class="card bg-light mb-3" id="cardindex">
       <div class="card-body">
         <div class="row">
-          <div class="col-1">
-            <p class="ansnum"></p>
-            <p><strong>Votes</strong></p>            
+          <div class="col-1" id="ansnum">
+              <h4><%= question.vote_questions.count %></h4>
+              <p><strong><%= question.vote_questions.count == 1 ? "Vote" : "Votes" %> </strong></p>
           </div>
           <div class="col-1" id="ansnum">
               <h4><%= question.answers.count%></h4>
-              <p><strong>Answers</strong></p>
+              <p><strong><%= question.answers.count == 1 ? "Answer" : "Answers" %> </strong></p>
           </div>
           <div class="col-10">
             <a href="<%= question_path(question) %>" class="">
             <h5 class="card-title"><h5><%=question.title%></h5></a>
             <p class="card-text"><strong>User:</strong> <%= @users.find(question.user_id).email%> <strong>Asked:</strong> <%= question.created_at%> </p>
         
-              <!--<p class="card-text"><%=h truncate(question.body, :length => 10) %></p> -->
           </div>
         </div>
       </div>

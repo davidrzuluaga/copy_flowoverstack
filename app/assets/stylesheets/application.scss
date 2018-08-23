@@ -22,3 +22,55 @@
   font-size: 15px;
   text-align: justify;
 }
+
+.question-upvote {
+  position: relative;
+  float: left;
+  text-align: center;
+  text-decoration: none;
+  margin-right: 20px;
+  padding: 5px 5px;
+  width: 35px;
+}
+  
+.upvote-count {
+  display: block;
+  color: #303030;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1;
+  margin-top: 18px;
+}
+
+.upvote-active {
+  .upvote-arrow { border-bottom-color: #F04500; }
+  .upvote-count { color: #F04500; }
+}
+i {
+  border: solid black;
+  border-width: 0 3px 3px 0;
+  display: inline-block;
+  padding: 3px;
+}
+
+.up {
+  transform: rotate(-135deg);
+  -webkit-transform: rotate(-135deg);
+}
+
+.down {
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+}
+
+#card {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+#cardindex {
+  margin-top: 5px;
+}
+#questionedit {
+  margin-top: 25%;
+}

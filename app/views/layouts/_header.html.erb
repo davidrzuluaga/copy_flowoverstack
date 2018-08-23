@@ -21,9 +21,6 @@
                   <%= link_to 'Log Out', destroy_user_session_path, method: 'delete', class:"dropdown-item" %>
                 </ul>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="<%=new_question_path%>">New</a>
-              </li>
             <% else %>
                 <ul>
                   <%= link_to 'Log In', new_user_session_path, class:"dropdown-item" %>
@@ -32,6 +29,9 @@
                   <%= link_to 'Sign Up', new_user_registration_path, class:"dropdown-item" %>
                 </ul>
             <% end %>
+              <li class="nav-item">
+                <a class="nav-link" href="<%=new_question_path%>">New Question</a>
+              </li>
           </ul>
          
     </ul>

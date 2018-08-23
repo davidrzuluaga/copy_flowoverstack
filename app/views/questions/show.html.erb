@@ -11,44 +11,81 @@
         </div>
         <div class="row">
             <div class="col-1">
-                <p>Vote</p>
+
+                <p>Votes</p>
+            <% if @question.voted_by? current_user %>
+              <%= link_to question_questionvotes_path(@question), method: :delete, class: "question-upvote upvote-active" do %>
+                <span class="upvote-count"><%= @question.vote_questions.count %></span>
+                <i class="arrow down"></i>
+              <% end %>
+            <% else %>
+              <%= link_to question_questionvotes_path(@question), method: :post, class: "question-upvote" do %>
+                <span class="upvote-count"><%= @question.vote_questions.count %></span>
+                <i class="arrow up"></i>
+              <% end %>
+            <% end %>
+
             </div>
             <div class="col-11">
-                <p><%= @question.body %></p>
+                <div class="card border-success" id="card">
+                    <div class="card-body"><%= markdown(@question.body) %></div>
+                </div>
                 <p><strong>Comments</strong></p>
                 <% @questioncomments.each do |comment| %>
-                    <p><%= comment.text %> <%= (link_to "&#128465;".html_safe, comment, method: :delete, data: { confirm: "Confirm delete?" }) if signed_in? && comment.user == current_user%></p>
+                <div class="card" id="card">
+                    <div class="card-body"><%= markdown(comment.text) %> </div>
+                </div>
+                    <%= (link_to "Delete &#128465;".html_safe, comment, method: :delete, data: { confirm: "Confirm delete?" }) if signed_in? && comment.user == current_user%>
                 <%end%>
                 <% if signed_in?%>
                 <%= form_for @question.comments.build do |f| %>
                     <%= f.hidden_field :commentable_id %>
                     <%= f.hidden_field :commentable_type %>
                     <%= f.text_area :text, class:"form-control", id:"exampleFormControlTextarea1", rows:"1" %>
-                    <%= f.submit 'Comment', class: 'btn' %>
+                    <%= f.submit 'Comment', class: 'btn btn-secondary btn-sm', id:"card" %>
                 <% end %>
                 <%end%>
             </div>
         
             <div class="col-12">
                 <h2><%= @answers.count %> <%= @answers.count == 1 ? "Answer" : "Answers" %> </h2>
+                <hr>
                 <% @answers.each do |answer|%>
                 <div class="row">      
-                    <div class="col-1"><p>Vote</p>
+                    <div class="col-1">
+                        <p>Votes</p>
+                        <% if answer.voted_by? current_user %>
+                          <%= link_to answer_answervotes_path(answer), method: :delete, class: "question-upvote upvote-active" do %>
+                            <span class="upvote-count"><%= answer.vote_answers.count %></span>
+                            <i class="arrow down"></i>
+                          <% end %>
+                        <% else %>
+                          <%= link_to answer_answervotes_path(answer), method: :post, class: "question-upvote" do %>
+                            <span class="upvote-count"><%= answer.vote_answers.count %></span>
+                            <i class="arrow up"></i>
+                          <% end %>
+                        <% end %>
                     </div>
                 
                     <div class="col-11">
-                        <p><%= answer.text %>
-                        <%= (link_to "&#128465;".html_safe, answer, method: :delete, data: { confirm: "Confirm delete?" }) if signed_in? && answer.user == current_user%></p>
-                                <% answer.comments.each do |comment| %>
-                                    <p>Comment: <%= comment.text %>  
-                                    <%= (link_to "&#128465;".html_safe, comment, method: :delete, data: { confirm: "Confirm delete?" }) if signed_in? && comment.user == current_user%></p>
+                    <div class="card border-primary" id="card">
+                        <div class="card-body"><%= markdown(answer.text) %></div>
+                    </div>
+                        <%= (link_to "Delete &#128465;".html_safe, answer, method: :delete, data: { confirm: "Confirm delete?" }) if signed_in? && answer.user == current_user%></p>
+                                <p><strong>Comments</strong></p>
+                                
+                                    <% answer.comments.each do |comment| %>
+                                    <div class="card" id="card">
+                                        <div class="card-body"><%= markdown(comment.text) %></div>
+                                    </div>
+                                    <%= (link_to "Delete &#128465;".html_safe, comment, method: :delete, data: { confirm: "Confirm delete?" }) if signed_in? && comment.user == current_user%></p>
                                 <%end%>
                                     <% if signed_in?%>
                                         <%= form_for answer.comments.build do |f| %>
                                             <%= f.hidden_field :commentable_id %>
                                             <%= f.hidden_field :commentable_type %>
                                             <%= f.text_area :text, class:"form-control", id:"exampleFormControlTextarea1", rows:"2" %>
-                                            <%= f.submit 'Comment', class: 'btn btn-secondary btn-sm' %>
+                                            <%= f.submit 'Comment', class: 'btn btn-secondary btn-sm', id:"card" %>
                                         <% end %>                        
                                     <% end %>
                     </div>
@@ -62,7 +99,7 @@
                     <%= form_for @question.answers.build do |f| %>
                         <%= f.hidden_field :question_id %>
                         <%= f.text_area :text, class:"form-control", id:"exampleFormControlTextarea1", rows:"2" %>
-                        <%= f.submit 'answer', class: 'btn' %>
+                        <%= f.submit 'Answer', class: 'btn', id:"card" %>
                     <% end %>
                 <%else%>
                     <p>Sing Up or Log In to answer</p>            
