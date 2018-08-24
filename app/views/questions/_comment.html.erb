@@ -1,6 +1,0 @@
-                <%= form_for @question.comments.build do |f| %>
-                    <%= f.hidden_field :commentable_id %>
-                    <%= f.hidden_field :commentable_type %>
-                    <%= f.text_area :text, class:"form-control", id:"exampleFormControlTextarea1", rows:"1" %>
-                    <%= f.submit 'Comment', class: 'btn btn-secondary btn-sm', id:"card" %>
-                <% end %>

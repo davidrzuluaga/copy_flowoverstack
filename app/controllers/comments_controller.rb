@@ -3,8 +3,10 @@ class CommentsController < ApplicationController
     def create
       comment = Comment.new(comment_params)
       comment.user = current_user
-      comment.save
-      redirect_to question_path(comment.commentable_type == "Question" ? comment.commentable.id : comment.commentable.question_id)
+      if comment.save
+        redirect_to question_path(comment.commentable_type == "Question" ? comment.commentable.id : comment.commentable.question_id)
+      else
+        
     end
 
     def destroy
