@@ -38,16 +38,21 @@
                     <%= (link_to "Delete &#128465;".html_safe, comment, method: :delete, data: { confirm: "Confirm delete?" }) if signed_in? && comment.user == current_user%>
                 <%end%>
                 <% if signed_in?%>
-                <%= form_for @question.comments.build do |f| %>
-                    <%= f.hidden_field :commentable_id %>
-                    <%= f.hidden_field :commentable_type %>
-                    <%= f.text_area :text, class:"form-control", id:"exampleFormControlTextarea1", rows:"1" %>
-                    <%= f.submit 'Comment', class: 'btn btn-secondary btn-sm', id:"card" %>
-                <% end %>
+                   
+                    <% if @question.errors.any? %>
+                        <div class="alert alert-danger">
+                            <ul><% @question.errors.full_messages.each do |msg| %>
+                            <li><%= msg %></li>
+                            <% end %></ul>
+                        </div>
+                    <% end %>
+
+                    <%= render 'comment', comment: @comment, action: 'new'%> 
+
                 <%end%>
             </div>
         
-            <div class="col-12">
+            <div class="row">
                 <h2><%= @answers.count %> <%= @answers.count == 1 ? "Answer" : "Answers" %> </h2>
                 <hr>
                 <% @answers.each do |answer|%>
@@ -96,6 +101,15 @@
             <div class="col-12"> 
                 <h3> Answer the question! </h3>
                 <% if signed_in?%>
+
+                    <% if @question.errors.any? %>
+                        <div class="alert alert-danger">
+                            <ul><% @question.errors.full_messages.each do |msg| %>
+                            <li><%= msg %></li>
+                            <% end %></ul>
+                        </div>
+                    <% end %>
+
                     <%= form_for @question.answers.build do |f| %>
                         <%= f.hidden_field :question_id %>
                         <%= f.text_area :text, class:"form-control", id:"exampleFormControlTextarea1", rows:"2" %>

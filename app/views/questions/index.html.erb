@@ -15,7 +15,7 @@
           <div class="col-10">
             <a href="<%= question_path(question) %>" class="">
             <h5 class="card-title"><h5><%=question.title%></h5></a>
-            <p class="card-text"><strong>User:</strong> <%= @users.find(question.user_id).email%> <strong>Asked:</strong> <%= question.created_at%> </p>
+            <p class="card-text"><strong>User:</strong> <%= question.user.email%> <strong>Asked:</strong> <%= question.created_at%> </p>
         
           </div>
         </div>

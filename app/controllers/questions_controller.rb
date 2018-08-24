@@ -2,13 +2,10 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :update, :destroy, :edit]
   
   def index
-    
-    @users = User.all
-
-    @questions = Question.order("created_at DESC")
     if params[:question].present?
       @questions = Question.where("title LIKE ? OR body LIKE ?", "%#{params[:question]}%", "%#{params[:question]}%")
-      # @questions = @questions.where("body LIKE ?", "%#{params[:question]}%") 
+    else
+      @questions = Question.order("created_at DESC")
     end
   end
  
@@ -28,9 +25,9 @@ class QuestionsController < ApplicationController
   
   def show
     @question = Question.find(params[:id])
-    @questioncomments = Question.find(params[:id]).comments
-    @answers = Question.find(params[:id]).answers
-  end  
+    @questioncomments = @question.comments
+    @answers = @question.answers
+  end
   
   def edit
     @question = Question.find(params[:id])
