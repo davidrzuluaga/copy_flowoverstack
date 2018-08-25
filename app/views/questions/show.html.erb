@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-8 offset-2">
+    <div class="col-lg-8 offset-lg-2 col-md-10 offset-md-1">
         <div id="head">
             <h1><%= @question.title %></h1>
             <% if signed_in? && @question.user == current_user%>
@@ -8,16 +8,14 @@
                     <%= link_to "&#128465;".html_safe, @question, method: :delete, data: { confirm: "Delete this question?" } %>
                 </div>
             <%end%>
-        
-        <div class="container">
-          <% flash.each do |key, value| %>
-            <div class="alert alert-success"><%= value %></div>
-          <% end %>
-        </div>
-
+            <div class="container">
+              <% flash.each do |key, value| %>
+                <div class="alert alert-<%= key == "" ? "success" : key %>"><%= value %></div>
+              <% end %>
+            </div>
         </div>
         <div class="row">
-            <div class="col-1">
+          <div class="col-1">
 
                 <p>Votes</p>
             <% if @question.voted_by? current_user %>
@@ -55,7 +53,7 @@
                 <%end%>
             </div>
         
-            <div class="row">
+            <div class="col-12">
                 <h2><%= @answers.count %> <%= @answers.count == 1 ? "Answer" : "Answers" %> </h2>
                 <hr>
                 <% @answers.each do |answer|%>

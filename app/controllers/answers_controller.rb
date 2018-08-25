@@ -3,8 +3,13 @@ class AnswersController < ApplicationController
     def create
        @answer = Answer.new(question_params)
        @answer.user = current_user
-       @answer.save
-       redirect_to question_path(@answer.question)
+       if @answer.save
+        flash[:success] = "Answer posted successfully!"
+        redirect_to question_path(@answer.question)
+       else
+        flash[:danger] = "The answer can't be blank!"
+        redirect_to question_path(@answer.question)
+       end
     end  
 
     def destroy
@@ -12,6 +17,7 @@ class AnswersController < ApplicationController
         if @answer.user == current_user
           answer = Answer.find(params[:id])
           answer.destroy
+          flash[:success] = "Answer deleted!"
           redirect_to question_path(@answer.question)  
         end
     end
